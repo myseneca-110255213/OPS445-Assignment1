@@ -1,0 +1,12 @@
+* A description of how the "after()" function works:
+	take one variable as an argument, split into the dd-mm-yyyy format, and adds one day. Accounting for how this will change the month/year, including leap years.
+~~~~~~~~~~~
+* before:
+	take one variable as an argument, split into the dd-mm-yyyy format, and SUBTRACTS one day. Accounting for how this will change the month/year, including leap years.
+
+~~~~~~~~~~~
+* dbda:
+	create a function called dbda that accepts 2 arguments: (start_date), and (num_days), and use either the before() or after() function in a loop to count up the number of specified days.
+
+
+    
