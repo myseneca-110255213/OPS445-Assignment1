@@ -93,21 +93,24 @@ def before(today):
 
         feb_max = (leap_year(year))
 
-        tmp_day = day - 1 # next day
+        tmp_day = day - 1 # prev day
 
         mon_max = { 1:31, 2:feb_max, 3:31, 4:30, 5:31, 6:30, 7:31, 8:31, 9:30, 10:31, 11:30, 12:31}
-        if tmp_day < mon_max[month]:
-            to_day = tmp_day % mon_max[month] # if tmp_day > this month's max, reset to 1
+        if tmp_day < 1 & month != 1:                # if tmp_day falls below 0 and month will not drop below 1
+            to_day = mon_max [month - 1]            # change to_day to mon_max of previous month
+            tmp_month = month - 1
+        elif tmp_day < 1 & month == 1:              # special exception for when tmp_day might attempt to use month 0, which doesn't exist
+            to_day = 31
             tmp_month = month - 1
         else:
             to_day = tmp_day
-            tmp_month = month - 0
+            tmp_month = month
 
-        if tmp_month < 12:
-            to_month = 1
+        if tmp_month < 1:
+            to_month = 12
             year = year - 1
         else:
-            to_month = tmp_month + 0
+            to_month = tmp_month
 
         next_date = str(to_day).zfill(2)+"-"+str(to_month).zfill(2)+"-"+str(year)
         return next_date
@@ -120,8 +123,9 @@ def dbda(start_date, num_days):
         if num_days > 0:
             end_date = after(end_date)
             num_days -= 1
-            #print(num_days) #testing only
-            #print(end_date) #testing only
+        else:
+            end_date = before(end_date)
+            num_days += 1
     # return end_date
     return end_date
 
