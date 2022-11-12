@@ -55,10 +55,10 @@ def after(today):
     if len(today) != 10:
         return '00-00-0000'
     else:
-        str_day, str_month, str_year = today.split('-')
-        year = int(str_year)
-        month = int(str_month)
-        day = int(str_day)
+        sday, smonth, syear = today.split('-')
+        year = int(syear)
+        month = int(smonth)
+        day = int(sday)
 
         feb_max = (leap_year(year))
 
@@ -86,10 +86,10 @@ def before(today):
     if len(today) != 10:
         return '00-00-0000'
     else:
-        str_day, str_month, str_year = today.split('-')
-        year = int(str_year)
-        month = int(str_month)
-        day = int(str_day)
+        sday, smonth, syear = today.split('-')
+        year = int(syear)
+        month = int(smonth)
+        day = int(sday)
 
         feb_max = (leap_year(year))
 
@@ -130,8 +130,16 @@ def dbda(start_date, num_days):
     return end_date
 
 if __name__ == "__main__":
-    # process command line arguments
-    # call dbda()
-    call = (dbda(sys.argv[1], int(sys.argv[2])))
-    # output the result
-    print(call)
+    day, month, year = (sys.argv[1].split('-'))
+    if int(day) < 1 or int(day) > 31:
+        print("wrong day entered")
+    elif int(month) < 1 or int(month) > 12:
+        print("wrong month entered")
+    elif len(sys.argv[1]) != 10:
+        print("wrong date entered")
+    else:
+        # process command line arguments
+        # call dbda()
+        call = (dbda(sys.argv[1], int(sys.argv[2])))
+        # output the result
+        print(call)
