@@ -17,6 +17,8 @@ Description: <Enter your documentation here>
 Date: 
 '''
 
+import sys
+
 def usage():
     "TODO enter docstring"
     pass # TODO: delete this line, replace with valid code.
@@ -33,9 +35,19 @@ def valid_date(date):
 
 def leap_year(year):
     "takes a year in YYYY format, and returns True if it's a leap year, False otherwise."
-    # TODO reorganize code, enter code from after() here.
-    pass # TODO: delete this line, replace with return statement.
 
+    lyear = year % 4 #
+    if lyear == 0:
+       feb_max = 29 # this is a leap year
+    else:
+        feb_max = 28 # this is not a leap year
+    lyear = year % 100
+    if lyear == 0:
+        feb_max = 28 # this is not a leap year
+    lyear = year % 400
+    if lyear == 0:
+        feb_max = 29 # this is a leap year
+    return feb_max
 
 def after(today):
     "after takes a valid date string in DD-MM-YYYY format and returns"
@@ -48,19 +60,7 @@ def after(today):
         month = int(str_month)
         day = int(str_day)
 
-        lyear = year % 4 # TODO: put this into the function leap_year.
-        if lyear == 0:
-            feb_max = 29 # this is a leap year
-        else:
-            feb_max = 28 # this is not a leap year
-
-        lyear = year % 100
-        if lyear == 0:
-            feb_max = 28 # this is not a leap year
-
-        lyear = year % 400
-        if lyear == 0:
-            feb_max = 29 # this is a leap year
+        feb_max = (leap_year(year))
 
         tmp_day = day + 1 # next day
 
@@ -81,7 +81,7 @@ def after(today):
         next_date = str(to_day).zfill(2)+"-"+str(to_month).zfill(2)+"-"+str(year)
         return next_date
 
-def before():
+def before(today):
     "pasted from 'after' and changed + to -, > to <"
     if len(today) != 10:
         return '00-00-0000'
@@ -91,19 +91,7 @@ def before():
         month = int(str_month)
         day = int(str_day)
 
-        lyear = year % 4 # TODO: put this into the function leap_year.
-        if lyear == 0:
-            feb_max = 29 # this is a leap year
-        else:
-            feb_max = 28 # this is not a leap year
-
-        lyear = year % 100
-        if lyear == 0:
-            feb_max = 28 # this is not a leap year
-
-        lyear = year % 400
-        if lyear == 0:
-            feb_max = 29 # this is a leap year
+        feb_max = (leap_year(year))
 
         tmp_day = day - 1 # next day
 
@@ -125,13 +113,21 @@ def before():
         return next_date
 
 def dbda(start_date, num_days):
-    end_date = 0
     # create a loop
+    end_date = start_date
+    while num_days != 0:
     # call before() or after() as appropriate
+        if num_days > 0:
+            end_date = after(end_date)
+            num_days -= 1
+            #print(num_days) #testing only
+            #print(end_date) #testing only
     # return end_date
+    return end_date
 
 if __name__ == "__main__":
     # process command line arguments
     # call dbda()
+    call = (dbda(sys.argv[1], int(sys.argv[2])))
     # output the result
-    pass
+    print(call)
